@@ -1,10 +1,12 @@
 
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View, Text, FlatList, StatusBar, Pressable } from 'react-native';
+import { Button, StyleSheet, TextInput, View, Text, FlatList, StatusBar, Pressable, Modal } from 'react-native';
 
 export default function App() {
   const [textItem, setTextItem] = useState('')
   const [itemList, setItemList] = useState([])
+  const [itemSelectedToDelete, setItemSelectedToDelete] = useState({ value: 'Tarea 1' })
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const onChangeTextHandler = (text) => {
     setTextItem(text)
@@ -37,7 +39,7 @@ export default function App() {
     <>
       <View style={styles.container}>
         <StatusBar />
-        <Text style={styles.titleApp}>✓  MobileTask</Text>
+        <Text style={styles.titleApp}>✓  PendingTasks</Text>
         <View style={styles.inputContainer} >
           <TextInput
             style={styles.textInput}
@@ -60,6 +62,25 @@ export default function App() {
           keyExtractor={item => item.id}
         />
       </View>
+
+      <Modal
+        transparent={true}
+        animationType='slide'
+        visible={true}>
+        <View
+          style={styles.modalContainer}>
+          <View style={styles.modalMessageContainer}>
+            <Text style={styles.modalMessageTitle}>Do you want to delete this task? </Text>
+            <Text style={styles.modalMessageItem}>
+              ' {itemSelectedToDelete.value} '
+            </Text>
+          </View>
+          <View style={styles.modalButtonContainer}>
+            <Button title="Cancel" color="grey" />
+            <Button title="Delete" color='red' />
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
@@ -124,5 +145,32 @@ const styles = StyleSheet.create({
   textButtonDelete: {
     color: 'whitesmoke',
     fontSize: 25
+  },
+  modalContainer: {
+    height: '50%',
+    width: '90%',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    borderRadius: 10,
+    justifyContent: 'space-between',
+    padding: 20,
+    marginTop: '50%',
+    marginHorizontal: '5%',
+    color: 'white'
+  },
+  modalMessageContainer: {
+    alignItems: "center",
+  },
+  modalButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  modalMessageTitle: {
+    fontSize: 20,
+    marginBottom: 50,
+    color: 'whitesmoke'
+  },
+  modalMessageItem: {
+    color: 'whitesmoke',
+    fontSize: 20
   }
 });
