@@ -1,21 +1,58 @@
 
-import { Button, StyleSheet, TextInput, View, Text } from 'react-native';
+import { useState } from 'react';
+import { Button, StyleSheet, TextInput, View, Text, FlatList } from 'react-native';
 
 export default function App() {
+  const [textItem, setTextItem] = useState('')
+  const [itemList, setItemList] = useState([])
+
+  const onChangeTextHandler = (text) => {
+    setTextItem(text)
+  }
+
+  const addItemToList = () => {
+    setItemList(prevState => [...prevState, { id: Math.random().toString(), value: textItem }])
+    setTextItem('')
+  }
+
+  const renderListItem = ({ item }) => {
+    <View style={styles.itemList}>
+      <Text>{item.value}</Text>
+      <Button title='x' />
+    </View>
+  }
+
   return (
+    <>
     <View style={styles.container}>
       <Text style={styles.titleApp}>Task App</Text>
       <View style={styles.inputContainer} >
-        <TextInput style={styles.textInput} placeholder='Ingresar Tarea'/>
-        <Button title='Add'/>
+        <TextInput 
+          style={styles.textInput}
+          placeholder='Ingresar Tarea'
+          onChangeText={onChangeTextHandler}
+          value={textItem}
+          />
+        <Button 
+          title='Add'
+          color='gray'
+          onPress={addItemToList}
+          />
       </View>
-      <View></View>
+      <FlatList
+        data={itemList}
+        renderItem={renderListItem}
+        keyExtractor={item => item.id}
+      />
     </View>
+    </>
   );
 }
 
+
+
 const styles = StyleSheet.create({
-  
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
