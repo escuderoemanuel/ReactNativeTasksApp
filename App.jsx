@@ -1,8 +1,11 @@
 
 import { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, StatusBar, Pressable } from 'react-native';
+import { StyleSheet, View, Text, StatusBar, Pressable } from 'react-native';
 import CustomModal from './components/CustomModal';
 import CustomInput from './components/CustomInput'
+import CustomFlatList from './components/CustomFlatList';
+import Header from './components/Header';
+import logoDev from './assets/logoDev.png'
 
 export default function App() {
   const [textItem, setTextItem] = useState('')
@@ -49,21 +52,23 @@ export default function App() {
     <>
       <View style={styles.container}>
         <StatusBar />
-        <Text style={styles.titleApp}>✓  PendingTasks</Text>
 
-        <CustomInput
-          placeholderProp='Ingresar Tarea'
-          textItemProp={textItem}
-          onChangeTextHandlerEvent={onChangeTextHandler}
-          addItemToListEvent={addItemToList}
-        />
+        <Header titleProp='✓  PendingTasks' imgDev={logoDev} />
 
-        <FlatList
-          style={styles.flatList}
-          data={itemList}
-          renderItem={renderListItem}
-          keyExtractor={item => item.id}
-        />
+        <View style={styles.body}>
+          <CustomFlatList
+            itemListProp={itemList}
+            renderListItemEvent={renderListItem}
+          />
+
+          <CustomInput
+            placeholderProp='Ingresar Tarea'
+            textItemProp={textItem}
+            onChangeTextHandlerEvent={onChangeTextHandler}
+            addItemToListEvent={addItemToList}
+          />
+        </View>
+
       </View >
 
       <CustomModal
@@ -73,6 +78,7 @@ export default function App() {
         setIsModalVisibleEvent={setIsModalVisible}
         onDeleteItemHandlerEvent={onDeleteItemHandler}
       />
+
     </>
   );
 }
@@ -82,22 +88,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#212121',
+    backgroundColor: '#101010',
     color: 'whitesmoke',
+  },
+  body: {
     alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  titleApp: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-    color: 'whitesmoke',
-    marginBottom: 30,
-    padding: 10,
-  },
-  flatList: {
-    width: '90%',
-    marginTop: 30
+    justifyContent: 'space-between',
+    height: '90%'
   },
   itemList: {
     justifyContent: 'center',
