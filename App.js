@@ -5,7 +5,7 @@ import { Button, StyleSheet, TextInput, View, Text, FlatList, StatusBar, Pressab
 export default function App() {
   const [textItem, setTextItem] = useState('')
   const [itemList, setItemList] = useState([])
-  const [itemSelectedToDelete, setItemSelectedToDelete] = useState({ value: 'Tarea 1' })
+  const [itemSelectedToDelete, setItemSelectedToDelete] = useState({})
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const onChangeTextHandler = (text) => {
@@ -29,11 +29,23 @@ export default function App() {
       <Pressable
         style={styles.buttonDelete}
         accessibilityLabel='Button to delete Task of the List'
+        onPress={() => onSelectItemHandler(item.id)}
       >
         <Text style={styles.textButtonDelete}>×</Text>
       </Pressable>
     </View>
   )
+
+  const onSelectItemHandler = (id) => {
+    setIsModalVisible(!isModalVisible)
+    setItemSelectedToDelete(itemList.find((item) => item.id === id))
+  }
+
+  const onDeleteItemHandler = () => {
+    setItemList(itemList.filter((item) => item.id !== itemSelectedToDelete.id))
+    setItemSelectedToDelete({})
+    setIsModalVisible(!isModalVisible)
+  }
 
   return (
     <>
@@ -66,7 +78,7 @@ export default function App() {
       <Modal
         transparent={true}
         animationType='slide'
-        visible={true}>
+        visible={isModalVisible}>
         <View
           style={styles.modalContainer}>
           <View style={styles.modalMessageContainer}>
@@ -76,8 +88,8 @@ export default function App() {
             </Text>
           </View>
           <View style={styles.modalButtonContainer}>
-            <Button title="Cancel" color="grey" />
-            <Button title="Delete" color='red' />
+            <Button title="Cancel" color="grey" onPress={() => setIsModalVisible(!isModalVisible)} />
+            <Button title="Delete" color='red' onPress={() => onDeleteItemHandler()} />
           </View>
         </View>
       </Modal>
