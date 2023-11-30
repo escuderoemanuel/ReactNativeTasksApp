@@ -18,7 +18,9 @@ export default function App() {
   }
 
   const addItemToList = () => {
-    setItemList(prevState => [...prevState, { id: Math.random().toString(), value: textItem }])
+    // Validates that the content of textItem is not empty 
+    textItem.length > 0 &&
+      setItemList(prevState => [...prevState, { id: Math.random().toString(), value: textItem }])
     //console.log(itemList)
     setTextItem('')
   }
