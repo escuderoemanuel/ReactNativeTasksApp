@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View, Text, FlatList, StatusBar, Pressable } from 'react-native';
-import ModalCustom from './components/ModalCustom';
+import { StyleSheet, View, Text, FlatList, StatusBar, Pressable } from 'react-native';
+import CustomModal from './components/CustomModal';
+import CustomInput from './components/CustomInput'
 
 export default function App() {
   const [textItem, setTextItem] = useState('')
@@ -49,30 +50,23 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar />
         <Text style={styles.titleApp}>✓  PendingTasks</Text>
-        <View style={styles.inputContainer} >
-          <TextInput
-            style={styles.textInput}
-            placeholder='Ingresar Tarea'
-            placeholderTextColor='whitesmoke'
-            onChangeText={onChangeTextHandler}
-            value={textItem}
-          />
-          <Button
-            title='  +  '
-            color='rgb(245, 73, 144)'
-            accessibilityLabel='Button to add a Task to the List'
-            onPress={addItemToList}
-          />
-        </View>
+
+        <CustomInput
+          placeholderProp='Ingresar Tarea'
+          textItemProp={textItem}
+          onChangeTextHandlerEvent={onChangeTextHandler}
+          addItemToListEvent={addItemToList}
+        />
+
         <FlatList
           style={styles.flatList}
           data={itemList}
           renderItem={renderListItem}
           keyExtractor={item => item.id}
         />
-      </View>
+      </View >
 
-      <ModalCustom
+      <CustomModal
         animationTypeProp='slide'
         isVisibleProp={isModalVisible}
         itemSelectedToDeleteProp={itemSelectedToDelete}
@@ -100,20 +94,6 @@ const styles = StyleSheet.create({
     color: 'whitesmoke',
     marginBottom: 30,
     padding: 10,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%'
-  },
-  textInput: {
-    width: '85%',
-    padding: 5,
-    borderBottomColor: "rgb(245, 73, 144)",
-    borderBottomWidth: 2,
-    color: 'whitesmoke',
-    marginRight: 5,
-    fontSize: 20
   },
   flatList: {
     width: '90%',
@@ -143,6 +123,5 @@ const styles = StyleSheet.create({
   textButtonDelete: {
     color: 'whitesmoke',
     fontSize: 25
-  },
-
+  }
 });
