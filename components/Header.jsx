@@ -1,13 +1,17 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Linking, Pressable } from 'react-native'
 
 export default function Header({ titleProp, imgDev }) {
+  const devURL = 'https://emanuelescudero.ar'
+
   return (
     <View style={styles.header}>
       <Text style={styles.titleApp}>{titleProp}</Text>
-      <Image
-        style={styles.imgDev}
-        source={imgDev}
-      />
+      <Pressable onPress={() => Linking.openURL('https://emanuelescudero.ar')}>
+        <Image
+          style={styles.imgDev}
+          source={imgDev}
+        />
+      </Pressable>
     </View>
   )
 }
