@@ -6,12 +6,15 @@ import CustomInput from './components/CustomInput'
 import CustomFlatList from './components/CustomFlatList';
 import Header from './components/Header';
 import logoDev from './assets/logoDev.png'
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 export default function App() {
   const [textItem, setTextItem] = useState('')
   const [itemList, setItemList] = useState([])
   const [itemSelectedToDelete, setItemSelectedToDelete] = useState({})
   const [isModalVisible, setIsModalVisible] = useState(false)
+  /* const [itemChecked, setItemChecked] = useState(false) */
 
   const onChangeTextHandler = (text) => {
     setTextItem(text)
@@ -26,18 +29,31 @@ export default function App() {
   }
 
   const renderListItem = ({ item }) => (
-    <View style={styles.itemList}>
-      <Text style={styles.itemText}>{item.value}</Text>
+    <View style={item.checked ? styles.itemListDone : styles.itemList}>
+      {/* <Text style={styles.itemText}>{item.value}</Text> */}
+      <Text style={item.checked ? styles.itemTextDone : styles.itemText}>{item.value}</Text>
       {/* Pressable === Button */}
-      <Pressable
-        style={styles.buttonDelete}
-        accessibilityLabel='Button to delete Task of the List'
-        onPress={() => onSelectItemHandler(item.id)}
-      >
-        <Text style={styles.textButtonDelete}>×</Text>
-      </Pressable>
+      <View style={styles.iconsContainer}>
+        <Pressable
+          accessibilityLabel='Button to check Task of the List'
+          onPress={() => onCheckItemHandler(item.id)}
+        >
+          {item.checked ? (
+            <Ionicons name="ios-checkmark-done" style={styles.checkIconDone} />
+          ) : (
+            <Ionicons name="ios-checkmark" style={styles.checkIcon} />
+          )}
+        </Pressable>
+        <Pressable
+          accessibilityLabel='Button to delete Task of the List'
+          onPress={() => onSelectItemHandler(item.id)}
+        >
+          <Ionicons name="ios-trash" style={styles.trashIcon} />
+        </Pressable>
+      </View>
     </View>
-  )
+  );
+
 
   const onSelectItemHandler = (id) => {
     setIsModalVisible(!isModalVisible)
@@ -48,6 +64,11 @@ export default function App() {
     setItemList(itemList.filter((item) => item.id !== itemSelectedToDelete.id))
     setItemSelectedToDelete({})
     setIsModalVisible(!isModalVisible)
+  }
+
+  const onCheckItemHandler = (id) => {
+    setItemList(prevState => prevState.map(item => item.id === id ? { ...item, checked: !item.checked } : item))
+    /* setItemChecked(!itemChecked) */
   }
 
   return (
@@ -110,17 +131,43 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(245, 73, 144)",
     borderRadius: 10,
   },
+  itemListDone: {
+    justifyContent: 'center',
+    color: 'whitesmoke',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "#007BC6",
+    backgroundColor: "#926A8E",
+    borderRadius: 10,
+  },
   itemText: {
     color: 'whitesmoke',
     fontSize: 18
   },
-  buttonDelete: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'whitesmoke'
-  },
-  textButtonDelete: {
+  itemTextDone: {
     color: 'whitesmoke',
-    fontSize: 25
+    fontSize: 18,
+    fontStyle: 'italic',
+    textDecorationLine: 'line-through'
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    gap: 10
+  },
+  trashIcon: {
+    color: 'whitesmoke',
+    fontSize: 16
+  },
+  checkIcon: {
+    color: 'whitesmoke',
+    fontSize: 16
+  },
+  checkIconDone: {
+    color: 'whitesmoke',
+    fontSize: 16
   }
 });

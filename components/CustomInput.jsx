@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Button, Pressable } from 'react-native'
+import { StyleSheet, TextInput, View, Pressable } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function CustomInput({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   textInput: {
     width: '85%',
     padding: 5,
-    borderBottomColor: "rgb(245, 73, 144)",
+    borderBottomColor: "#bff942",
     borderBottomWidth: 2,
     color: 'whitesmoke',
     marginRight: 5,
@@ -42,13 +42,14 @@ const styles = StyleSheet.create({
   },
   btnAddContainer: {
     width: 40,
-    backgroundColor: 'rgb(245, 73, 144)',
+    backgroundColor: '#bff942',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
   btnAdd: {
     color: 'whitesmoke',
+    color: '#212121',
     fontSize: 25
   }
 })

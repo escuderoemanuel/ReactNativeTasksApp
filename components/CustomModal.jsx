@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     height: '50%',
     width: '90%',
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderRadius: 10,
     justifyContent: 'space-between',
     padding: 20,
