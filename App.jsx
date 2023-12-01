@@ -48,7 +48,7 @@ export default function App() {
           accessibilityLabel='Button to delete Task of the List'
           onPress={() => onSelectItemHandler(item.id)}
         >
-          <Ionicons name="ios-trash" style={styles.trashIcon} />
+          <Ionicons name="ios-trash" style={item.checked ? styles.trashIconDone : styles.trashIcon} />
         </Pressable>
       </View>
     </View>
@@ -95,7 +95,7 @@ export default function App() {
       </View >
 
       <CustomModal
-        animationTypeProp='slide'
+        animationTypeProp='fade'
         isVisibleProp={isModalVisible}
         itemSelectedToDeleteProp={itemSelectedToDelete}
         setIsModalVisibleEvent={setIsModalVisible}
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#101010',
-    color: 'whitesmoke',
+    color: 'whitesmoke'
   },
   body: {
     alignItems: 'center',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     marginVertical: 10,
-    backgroundColor: "rgb(245, 73, 144)",
+    backgroundColor: '#bff942',
     borderRadius: 10,
   },
   itemListDone: {
@@ -138,32 +138,34 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    padding: 8,
     marginVertical: 10,
-    backgroundColor: "#007BC6",
-    backgroundColor: "#926A8E",
+    borderColor: '#bff942',
+    borderWidth: 2,
     borderRadius: 10,
   },
   itemText: {
-    color: 'whitesmoke',
-    fontSize: 18
+    color: '#212121',
+    fontSize: 18,
   },
   itemTextDone: {
     color: 'whitesmoke',
     fontSize: 18,
-    fontStyle: 'italic',
-    textDecorationLine: 'line-through'
   },
   iconsContainer: {
     flexDirection: 'row',
     gap: 10
   },
   trashIcon: {
+    color: '#6C6C6C',
+    fontSize: 16
+  },
+  trashIconDone: {
     color: 'whitesmoke',
     fontSize: 16
   },
   checkIcon: {
-    color: 'whitesmoke',
+    color: '#6C6C6C',
     fontSize: 16
   },
   checkIconDone: {
