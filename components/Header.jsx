@@ -6,7 +6,7 @@ export default function Header({ titleProp, imgDev }) {
   return (
     <View style={styles.header}>
       <Text style={styles.titleApp}>{titleProp}</Text>
-      <Pressable onPress={() => Linking.openURL('https://emanuelescudero.ar')}>
+      <Pressable onPress={() => Linking.openURL(devURL)}>
         <Image
           style={styles.imgDev}
           source={imgDev}
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     padding: 15
   },
   titleApp: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'whitesmoke',
     textAlign: 'left'

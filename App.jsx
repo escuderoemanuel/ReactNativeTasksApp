@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { StyleSheet, View, Text, StatusBar, Pressable } from 'react-native';
 import CustomModal from './components/CustomModal';
@@ -14,7 +13,6 @@ export default function App() {
   const [itemList, setItemList] = useState([])
   const [itemSelectedToDelete, setItemSelectedToDelete] = useState({})
   const [isModalVisible, setIsModalVisible] = useState(false)
-  /* const [itemChecked, setItemChecked] = useState(false) */
 
   const onChangeTextHandler = (text) => {
     setTextItem(text)
@@ -24,15 +22,12 @@ export default function App() {
     // Validates that the content of textItem is not empty 
     textItem.length > 0 &&
       setItemList(prevState => [...prevState, { id: Math.random().toString(), value: textItem }])
-    //console.log(itemList)
     setTextItem('')
   }
 
   const renderListItem = ({ item }) => (
     <View style={item.checked ? styles.itemListDone : styles.itemList}>
-      {/* <Text style={styles.itemText}>{item.value}</Text> */}
       <Text style={item.checked ? styles.itemTextDone : styles.itemText}>{item.value}</Text>
-      {/* Pressable === Button */}
       <View style={styles.iconsContainer}>
         <Pressable
           accessibilityLabel='Button to check Task of the List'
@@ -68,7 +63,6 @@ export default function App() {
 
   const onCheckItemHandler = (id) => {
     setItemList(prevState => prevState.map(item => item.id === id ? { ...item, checked: !item.checked } : item))
-    /* setItemChecked(!itemChecked) */
   }
 
   return (
@@ -85,7 +79,7 @@ export default function App() {
           />
 
           <CustomInput
-            placeholderProp='Ingresar Tarea'
+            placeholderProp='Enter task'
             textItemProp={textItem}
             onChangeTextHandlerEvent={onChangeTextHandler}
             addItemToListEvent={addItemToList}

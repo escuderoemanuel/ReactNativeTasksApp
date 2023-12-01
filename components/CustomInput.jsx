@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     color: 'whitesmoke',
     marginRight: 5,
-    fontSize: 20
+    fontSize: 18
   },
   btnAddContainer: {
     width: 40,
